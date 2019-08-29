@@ -1,0 +1,58 @@
+<section>
+    <div cdkDropList cdkDropListOrientation="horizontal" class="drag_cont" (cdkDropListDropped)="drop($event)">
+        <div *ngFor="let board of boards$ | async; let i = index" cdkDrag class="boards_cont">
+                <mat-card>
+                    <button mat-icon-button id="deleteButton">
+                        <mat-icon (click)="deleteBoard(i)">cancel</mat-icon>
+                    </button>
+                    <mat-card-header>
+                            <mat-card-title *ngIf="fieldName !== 'title' + i; else elseBlock">
+                                <a routerLink="/board/{{board.link}}">{{board.title}}</a>
+                                <button mat-icon-button>
+                                    <mat-icon (click)="editBoard('title', board.title, i)">edit</mat-icon>
+                                </button>
+                            </mat-card-title>
+                            <mat-card-subtitle *ngIf="fieldName !== 'subject' + i; else elseBlock">
+                                <a routerLink="/board/{{board.link}}">{{board.subject}}</a>
+                                <button mat-icon-button>
+                                    <mat-icon (click)="editBoard('subject', board.subject, i)">edit</mat-icon>
+                                </button>
+                            </mat-card-subtitle>
+                            <ng-template #elseBlock>
+                                <mat-form-field id="editBoard">
+                                    <input matInput
+                                        autocomplete="off" placeholder=""
+                                        [formControl]="onEdit" (keyup.enter)="registerEdit(i)" required>
+                                        <mat-error *ngIf="onEdit.invalid">{{errorMsg("onEdit")}}</mat-error>
+                                </mat-form-field>
+                            </ng-template>
+                    </mat-card-header>
+                    <mat-card-content>
+                    </mat-card-content>
+                </mat-card>
+        </div>
+    </div>
+    <div class="boards_cont">
+        <mat-card>
+            <div [formGroup]="formControl" id="control">
+                <mat-card-header>
+                  <mat-card-title>   
+                        <mat-form-field id="title">
+                            <input matInput autocomplete="off" placeholder="input title" formControlName="title" required>
+                            <mat-error *ngIf="title.invalid">{{errorMsg("title")}}</mat-error>
+                        </mat-form-field>
+                  </mat-card-title>
+                  <mat-card-subtitle>
+                        <mat-form-field id="subject">
+                            <input matInput autocomplete="off" placeholder="subject" formControlName="subject" required>
+                            <mat-error *ngIf="subject.invalid">{{errorMsg("subject")}}</mat-error>
+                        </mat-form-field>                         
+                  </mat-card-subtitle>
+                </mat-card-header>
+                <mat-card-content>
+                </mat-card-content>
+                <button mat-flat-button (click)=createNewBoard()>Create new board</button>
+            </div>
+        </mat-card>
+    </div>
+</section>

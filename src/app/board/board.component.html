@@ -1,0 +1,69 @@
+<section>
+    <div cdkDropList cdkDropListOrientation="horizontal" [cdkDropListData]="(board$ | async)" (cdkDropListDropped)="dropGroup($event)"class="drag_cont">
+            <div cdkDropListGroup *ngFor="let card of (board$ | async)?.cards; let i = index" cdkDrag [cdkDragData]="card" class="boards_cont">
+                <mat-card>
+                        <button mat-icon-button id="deleteButton">
+                            <mat-icon (click)="deleteCard(i)">cancel</mat-icon>
+                        </button>
+                    <mat-card-header>
+                        <mat-card-title *ngIf="fieldName !== 'title' + i; else elseBlock">
+                            <p>{{card.title}}</p>
+                            <button mat-icon-button>
+                                <mat-icon class="iconTitle" (click)="editField(i, 'title', card.title)">edit</mat-icon>
+                            </button>
+                        </mat-card-title>
+                    </mat-card-header>
+                    <mat-card-content>
+                        <div
+                            cdkDropList
+                            id="{{card.index}}"
+                            #{{card.title}}="cdkDropList"
+                            [cdkDropListData]="card?.items"
+                            [cdkDropListConnectedTo]="getConnectedList()"
+                            class="example-list"
+                            (cdkDropListDropped)="dropItem($event, i)">
+                            <div *ngFor="let item of card?.items; let j = index" class="field_cont" cdkDrag [cdkDragData]="item">
+                                <div id="fieldCont" *ngIf="fieldName !== 'field' + i + j; else elseBlock">
+                                    <p>{{item}}</p>
+                                        <button mat-icon-button>
+                                            <mat-icon (click)="editField(i, 'field', item, j)">edit</mat-icon>
+                                        </button>
+                                        <button mat-icon-button>                                    
+                                            <mat-icon (click)="deleteField(i, j)">cancel</mat-icon>
+                                        </button>
+                                </div>
+                            </div>
+                        </div>
+                        <mat-form-field id="newField">
+                            <input matInput autocomplete="off" placeholder="new field, press enter to add it" 
+                                [formControl]="newField" (keyup.enter)="addNewField(i)">
+                        </mat-form-field>
+                    </mat-card-content>
+                </mat-card>
+            </div>
+    </div>
+    <div class="boards_cont">
+        <mat-card>
+            <div [formGroup]="formControl" id="control">
+                <mat-card-header>
+                  <mat-card-title>   
+                      <mat-form-field id="title">
+                        <input matInput autocomplete="off" placeholder="input title" formControlName="title" required>
+                        <mat-error *ngIf="title.invalid">{{errorMsg("title")}}</mat-error>
+                      </mat-form-field>
+                  </mat-card-title>
+                </mat-card-header>
+                <button mat-flat-button (click)=createNewCard()>Create new card</button>
+            </div>
+        </mat-card>
+    </div>
+    <ng-template #elseBlock>
+        <mat-form-field id="editBoard">
+            <input matInput
+                autocomplete="off" placeholder=""
+                [formControl]="onEdit" (keyup.enter)="registerEdit()" required>
+            <mat-error *ngIf="onEdit.invalid">{{errorMsg("onEdit")}}</mat-error>
+            
+        </mat-form-field>
+    </ng-template>
+</section>

@@ -1,0 +1,20 @@
+<section id="login_page">
+    <div id="login_hint">
+        <h4>login: user</h4>
+        <h4>password: user</h4>
+    </div>
+    <div [formGroup]="formControl" id="login_cont">
+        <mat-form-field appearance="outline">
+            <input matInput placeholder="login" formControlName="login" required>
+            <mat-error *ngIf="login.invalid">{{errorMsg("login")}}</mat-error>
+        </mat-form-field>
+        <mat-form-field appearance="outline">
+            <input matInput placeholder="password" formControlName="password" required>
+            <mat-error *ngIf="password.invalid">{{errorMsg("password")}}</mat-error>
+        </mat-form-field>
+        <button mat-raised-button color="primary" (click)=submit()>Login</button>
+    </div>
+    <div *ngIf="error" id="log_error">
+        {{ error.message === "Unauthorised" ? "Wrong login / password." : "Unknow error."}}
+    </div>
+</section>

@@ -1,0 +1,56 @@
+section {
+    display: flex;
+}
+
+.boards_cont {
+    display: flex;
+    padding: 10px;
+}
+
+.drag_cont {
+    display: flex;
+}
+
+.field_cont {
+    display: flex;
+}
+
+// .mat-icon {
+//     font-size: 18px;
+//     height: inherit;
+//     width: inherit;
+// }
+
+// .mat-chip {
+//     color: rgba(100,100,100,.87);
+//     padding: 0px 0px;
+//     top: 14px;
+//     left: 10px;
+//     min-height: inherit;
+//     height: inherit;
+// }
+
+.mat-card {
+    background-color: greenyellow;
+    width: 200px;
+    height: auto;
+    min-height: 300px;
+}
+
+.mat-card-title {
+    display: flex;
+}
+
+#fieldCont {
+    display: flex;
+}
+
+#deleteButton {
+    right: 0px;
+    top: 0px;
+    position: absolute;
+}
+
+.iconTitle{
+    vertical-align: bottom !important;
+}

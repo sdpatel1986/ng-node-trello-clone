@@ -1,0 +1,25 @@
+section {
+    display: flex;
+}
+
+.drag_cont {
+    display: flex;
+}
+
+.boards_cont {
+    display: flex;
+    padding: 10px;
+}
+
+.mat-card {
+    background-color: greenyellow;
+    width: 200px;
+    height: auto;
+    min-height: 300px;
+}
+
+#deleteButton {
+    right: 0px;
+    top: 0px;
+    position: absolute;
+}

@@ -1,0 +1,15 @@
+<header>
+  <div id='logged' *ngIf="logged; else elseBlock">
+    <a routerLink="boards">to boards</a>
+    <h4>Trello clone app</h4>
+    <div>
+      <p>logged in as: <strong>{{logged.user}}</strong></p>
+      <button mat-raised-button color="warn" (click)="logout()">logout</button>
+    </div>
+  </div>
+  <ng-template #elseBlock>
+    <h4>Trello clone app</h4>
+  </ng-template>
+</header>
+
+<router-outlet></router-outlet>
